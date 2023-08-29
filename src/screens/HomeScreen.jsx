@@ -11,9 +11,10 @@ const HomeScreen = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/products")
+      .get("http://localhost:5000/products")
       .then((response) => {
         setProducts(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
@@ -28,14 +29,14 @@ const HomeScreen = () => {
         <div className="flex flex-wrap gap-4 justify-center">
           {products.map((item) => (
             <ProductCard key={item._id}>
-              <Link to={`/product/${products.id}`}>
+              <Link to={`/products/${item.id}`}>
                 <img
                   src={item.image}
                   alt={item.name}
                   className="w-full h-48 object-contain mb-4"
                 />
               </Link>
-              <Link to={`/product/${products.id}`}>
+              <Link to={`/products/${item.id}`}>
                 <h2 className="text-lg font-semibold mb-2 overflow-ellipsis whitespace-nowrap overflow-hidden">
                   {item.name}
                 </h2>

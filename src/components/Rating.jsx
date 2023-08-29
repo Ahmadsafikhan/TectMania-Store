@@ -18,8 +18,8 @@ const Rating = ({ value, text, color }) => {
   });
 
   return (
-    <div className="rating flex items-center">
-      {stars}
+    <div className="rating flex items-center ">
+      <div className="flex mr-3"> {stars}</div>
       <span className="rating-text">{text && text}</span>
     </div>
   );
