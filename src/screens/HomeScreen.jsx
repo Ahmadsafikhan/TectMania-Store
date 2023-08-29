@@ -11,7 +11,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/products")
+      .get("/api/products")
       .then((response) => {
         setProducts(response.data);
         console.log(response.data);
@@ -28,7 +28,7 @@ const HomeScreen = () => {
         </h1>
         <div className="flex flex-wrap gap-4 justify-center">
           {products.map((item) => (
-            <ProductCard key={item._id}>
+            <ProductCard key={item.id}>
               <Link to={`/products/${item.id}`}>
                 <img
                   src={item.image}

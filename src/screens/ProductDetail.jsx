@@ -6,12 +6,12 @@ import Rating from "../components/Rating";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState({});
-  const { id } = useParams();
-  console.log(id);
+  const { id: productId } = useParams();
+  console.log(productId);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/products/${id}`)
+      .get(`/api/products/${productId}`)
       .then((response) => {
         console.log(response.data);
         return response.data;
@@ -22,14 +22,14 @@ const ProductDetail = () => {
       .catch((error) => {
         console.error("Error fetching product:", error);
       });
-  }, [id]);
+  }, [productId]);
 
   if (!product) {
     return <div>Loading...</div>;
   }
 
   return (
-    <Container className="p-4 mx-auto">
+    <Container className="p-4 mx-auto h-[100vh]">
       <Link to={"/"}>Back</Link>
       <div className="flex flex-col md:flex-row justify-center items-center pt-[5rem] max-w-5xl">
         <div className="pr-0 md:pr-[6rem] mb-[1.5rem] md:mb-0">
