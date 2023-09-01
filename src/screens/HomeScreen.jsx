@@ -28,15 +28,15 @@ const HomeScreen = () => {
         </h1>
         <div className="flex flex-wrap gap-4 justify-center">
           {products.map((item) => (
-            <ProductCard key={item.id}>
-              <Link to={`/products/${item.id}`}>
+            <ProductCard key={item._id}>
+              <Link to={`/products/${item._id}`}>
                 <img
                   src={item.image}
                   alt={item.name}
                   className="w-full h-48 object-contain mb-4"
                 />
               </Link>
-              <Link to={`/products/${item.id}`}>
+              <Link to={`/products/${item._id}`}>
                 <h2 className="text-lg font-semibold mb-2 overflow-ellipsis whitespace-nowrap overflow-hidden">
                   {item.name}
                 </h2>

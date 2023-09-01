@@ -14,7 +14,7 @@ const Header = () => {
     <nav className="bg-gray-800 p-4">
       <Container className="mx-auto flex items-center justify-between relative">
         <div>
-          <div className=" text-white font-semibold text-lg">My Store</div>
+          <div className=" text-white font-semibold text-lg">TechMania</div>
         </div>
         <div className="md:hidden">
           <button onClick={toggleMenu} className="text-white">
