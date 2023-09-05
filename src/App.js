@@ -7,8 +7,10 @@ import { Outlet } from "react-router-dom";
 const App = () => {
   return (
     <>
-      <Header />
-      <Outlet />
+      <div>
+        <Header />
+        <Outlet />
+      </div>
       <Footer />
     </>
   );

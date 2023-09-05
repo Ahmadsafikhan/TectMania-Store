@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#root {
+    @apply flex flex-col h-[100vh] justify-between;
+}
+
+footer {
+    @apply py-4;
+}

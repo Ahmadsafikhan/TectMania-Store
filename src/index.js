@@ -12,6 +12,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
+import CartScreen from './screens/CartScreen';
 import ProductDetail from "./screens/ProductDetail";
 
 const route = createBrowserRouter(
@@ -19,6 +20,7 @@ const route = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/products/:id" element={<ProductDetail />} />
+      <Route path='/cart' element={<CartScreen />} />
     </Route>
   )
 );
