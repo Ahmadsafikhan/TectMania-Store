@@ -1,11 +1,14 @@
 import { useState } from "react";
 import "./Header.css";
 import Container from "./common/Container";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-// import { Badge } from "react-bootstrap";
-// import { NavLink } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../slices/authSlice';
+import axios from 'axios'; // Import Axios
+
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import {BiSolidDownArrow} from "react-icons/bi"
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -15,14 +18,28 @@ const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.auth);
   // console.log(cartItems);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  const logoutHandler =() =>{
+  const logoutHandler = async () =>{
+
     console.log("logout")
+    try {
+      // Make a POST request to log the user out
+      await axios.post('/api/users/logout'); // Replace '/api/logout' with the actual logout API endpoint
+
+      // Dispatch the logout action and redirect to login page
+      dispatch(logout());
+      navigate('/login');
+    } catch (err) {
+      console.error(err);
+    }
   }
   const toggleDropdown = () => {
+    
     setDropdownVisible(!isDropdownVisible);
   };
 
@@ -92,12 +109,15 @@ const Header = () => {
 
           {userInfo ? (
           <div className="relative group">
+            <div className="flex items-center">
             <button
               onClick={toggleDropdown}
               className="text-white group-hover:text-gray-300 focus:outline-none"
             >
               {userInfo.name}
             </button>
+            <BiSolidDownArrow className="text-white text-[10px] ml-[5px]" />
+            </div>
             {isDropdownVisible && (
               <ul className="absolute left-0 mt-2 bg-white text-gray-800 border border-gray-200 rounded-md shadow-md">
                 <li>
