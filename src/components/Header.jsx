@@ -8,12 +8,22 @@ import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+ 
 
   const { cartItems } = useSelector((state) => state.cart);
-  console.log(cartItems);
+  const { userInfo } = useSelector((state) => state.auth);
+  // console.log(cartItems);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+  const logoutHandler =() =>{
+    console.log("logout")
+  }
+  const toggleDropdown = () => {
+    setDropdownVisible(!isDropdownVisible);
   };
 
   return (
@@ -79,7 +89,45 @@ const Header = () => {
 
             {/* </button> */}
           </Link>
-          <Link to={'/login'} className="text-white">Sign In</Link>
+
+          {userInfo ? (
+          <div className="relative group">
+            <button
+              onClick={toggleDropdown}
+              className="text-white group-hover:text-gray-300 focus:outline-none"
+            >
+              {userInfo.name}
+            </button>
+            {isDropdownVisible && (
+              <ul className="absolute left-0 mt-2 bg-white text-gray-800 border border-gray-200 rounded-md shadow-md">
+                <li>
+                  <Link
+                    to="/profile"
+                    onClick={toggleDropdown}
+                    className="block px-4 py-2 hover:bg-blue-100"
+                  >
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      logoutHandler();
+                      toggleDropdown();
+                    }}
+                    className="block w-full px-4 py-2 text-left hover:bg-blue-100"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            )}
+          </div>
+        ) : (
+          <Link to="/login" className="text-white hover:text-gray-300">
+            Sign In
+          </Link>
+        )}
         </div>
       </Container>
     </nav>
