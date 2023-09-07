@@ -79,7 +79,7 @@ const Header = () => {
 
             {/* </button> */}
           </Link>
-          <button className="text-white">Sign In</button>
+          <Link to={'/login'} className="text-white">Sign In</Link>
         </div>
       </Container>
     </nav>
