@@ -117,7 +117,7 @@ const CartScreen = () => {
                 disabled={cartItems.length === 0}
                 className="bg-blue-500 text-white px-4 py-2 rounded mt-4 w-full hover:bg-blue-600"
               >
-                Proceed To Checkout
+               <Link to={'/checkout'}> Proceed To Checkout </Link>
               </button>
             </div>
           </div>

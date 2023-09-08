@@ -1,19 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./Header.css";
 import Container from "./common/Container";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../slices/authSlice';
-import axios from 'axios'; // Import Axios
+import { useNavigate } from "react-router-dom";
+import { logout } from "../slices/authSlice";
+import axios from "axios"; // Import Axios
 
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import {BiSolidDownArrow} from "react-icons/bi"
+import { BiSolidDownArrow } from "react-icons/bi";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-
- 
+  const menuRef = useRef(null);
 
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.auth);
@@ -21,27 +20,49 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const toggleMenu = () => {
+  const toggleMenu = (event) => {
+    event.stopPropagation();
     setIsMenuOpen(!isMenuOpen);
   };
-  const logoutHandler = async () =>{
-
-    console.log("logout")
+  const logoutHandler = async () => {
+    console.log("logout");
     try {
       // Make a POST request to log the user out
-      await axios.post('/api/users/logout'); // Replace '/api/logout' with the actual logout API endpoint
+      await axios.post("/api/users/logout"); // Replace '/api/logout' with the actual logout API endpoint
 
       // Dispatch the logout action and redirect to login page
       dispatch(logout());
-      navigate('/login');
+      navigate("/login");
     } catch (err) {
       console.error(err);
     }
-  }
+  };
   const toggleDropdown = () => {
-    
     setDropdownVisible(!isDropdownVisible);
   };
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    const closeMenu = (event) => {
+      if (
+        isMenuOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    // Add a click event listener to the document
+    document.addEventListener("click", closeMenu);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("click", closeMenu);
+    };
+  }, [isMenuOpen]);
 
   return (
     <nav className="bg-gray-800 p-4">
@@ -73,6 +94,7 @@ const Header = () => {
           className={`menu md:flex ${
             isMenuOpen ? "block" : "hidden"
           } items-center space-x-4`}
+          ref={menuRef}
         >
           <div>
             <form action="" type="submit">
@@ -81,13 +103,13 @@ const Header = () => {
                 placeholder="Search"
                 className="bg-gray-700 text-white rounded-md py-2 pl-8 pr-4 focus:outline-none focus:ring focus:border-blue-300 mr-[15px]"
               />
-              <button className="bg-transparent border-teal-300 text-teal-300 border hover:bg-teal-300 hover:text-gray-800 hover:border-teal-300 py-2 px-4 rounded">
+              <button className="bg-transparent border-teal-300 text-teal-300 border hover:bg-teal-300 hover:text-gray-800 hover:border-teal-300 py-2 px-4 rounded" onClick={closeMenu}>
                 Search
               </button>
             </form>
           </div>
 
-          <Link to={"/cart"} className="flex items-center">
+          <Link to={"/cart"} className="flex items-center" onClick={closeMenu}>
             {/* <button className="text-white flex"> */}
             <div>
               <AiOutlineShoppingCart
@@ -108,46 +130,46 @@ const Header = () => {
           </Link>
 
           {userInfo ? (
-          <div className="relative group">
-            <div className="flex items-center">
-            <button
-              onClick={toggleDropdown}
-              className="text-white group-hover:text-gray-300 focus:outline-none"
-            >
-              {userInfo.name}
-            </button>
-            <BiSolidDownArrow className="text-white text-[10px] ml-[5px]" />
+            <div className="relative group">
+              <div className="flex items-center">
+                <button
+                  onClick={toggleDropdown}
+                  className="text-white group-hover:text-gray-300 focus:outline-none"
+                >
+                  {userInfo.name}
+                </button>
+                <BiSolidDownArrow className="text-white text-[10px] ml-[5px]" />
+              </div>
+              {isDropdownVisible && (
+                <ul className="absolute left-0 mt-2 bg-white text-gray-800 border border-gray-200 rounded-md shadow-md">
+                  <li>
+                    <Link
+                      to="/profile"
+                      onClick={toggleDropdown}
+                      className="block px-4 py-2 hover:bg-blue-100"
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => {
+                        logoutHandler();
+                        toggleDropdown();
+                      }}
+                      className="block w-full px-4 py-2 text-left hover:bg-blue-100"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              )}
             </div>
-            {isDropdownVisible && (
-              <ul className="absolute left-0 mt-2 bg-white text-gray-800 border border-gray-200 rounded-md shadow-md">
-                <li>
-                  <Link
-                    to="/profile"
-                    onClick={toggleDropdown}
-                    className="block px-4 py-2 hover:bg-blue-100"
-                  >
-                    Profile
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      logoutHandler();
-                      toggleDropdown();
-                    }}
-                    className="block w-full px-4 py-2 text-left hover:bg-blue-100"
-                  >
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            )}
-          </div>
-        ) : (
-          <Link to="/login" className="text-white hover:text-gray-300">
-            Sign In
-          </Link>
-        )}
+          ) : (
+            <Link to="/login" className="text-white hover:text-gray-300" onClick={closeMenu}>
+              Sign In
+            </Link>
+          )}
         </div>
       </Container>
     </nav>
