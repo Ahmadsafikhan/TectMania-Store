@@ -72,7 +72,7 @@ const OrderScreen = () => {
                 {order.isPaid ? (
                   <Message variant="success">Paid on {order.paidAt}</Message>
                 ) : (
-                  <Message variant="danger">Not Paid</Message>
+                  <Message variant="error">Not Paid</Message>
                 )}
               </div>
 

@@ -39,6 +39,7 @@ const LoginScreen = () => {
       });
 
       const res = response.data;
+      console.log("res", response);
 
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
