@@ -26,6 +26,7 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
+      setLoading(true);
       try {
         const { data } = await axios.get(`/api/orders/mine`); // Replace with your API endpoint
         setOrders(data);
@@ -73,8 +74,8 @@ const ProfileScreen = () => {
 
   return (
     <Container className="p-4 mx-auto">
-      <div className="flex justify-between flex-wrap">
-        <div className="pt-[25px]">
+      <div className="flex   gap-16 flex-wrap">
+        <div className="pt-[25px] md:w-1/4 ">
           <h1 className="text-2xl font-semibold mb-4">Update Profile</h1>
           <form onSubmit={submitHandler}>
             <div className="mb-4">
@@ -152,14 +153,18 @@ const ProfileScreen = () => {
             {loading && <Loader />}
           </form>
         </div>
-        <div className="pt-[25px]">
-          <h2 className="text-2xl font-semibold">My Orders</h2>
+        <div
+          className={`${userInfo.isAdmin === true ? "hidden" : ""} pt-[25px]`}
+        >
           {loading ? (
-            <Loader />
+            <div className=" ">
+              <Loader />
+            </div>
           ) : error ? (
             <Message variant="error">{error}</Message>
           ) : (
             <div className="max-sm:max-w-[300px] sm:w-full overflow-x-scroll ">
+              <h2 className="text-2xl font-semibold">My Orders</h2>
               <table className=" border-collapse border border-gray-300 ">
                 <thead>
                   <tr>

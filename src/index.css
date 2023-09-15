@@ -9,3 +9,7 @@
 footer {
   @apply py-4;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

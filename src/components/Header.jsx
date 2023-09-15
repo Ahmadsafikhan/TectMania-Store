@@ -12,6 +12,7 @@ import { BiSolidDownArrow } from "react-icons/bi";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [isDropdownVisibleAdmin, setDropdownVisibleAdmin] = useState(false);
   const menuRef = useRef(null);
 
   const { cartItems } = useSelector((state) => state.cart);
@@ -39,6 +40,10 @@ const Header = () => {
   };
   const toggleDropdown = () => {
     setDropdownVisible(!isDropdownVisible);
+  };
+
+  const toggleDropdownAdmin = () => {
+    setDropdownVisibleAdmin(!isDropdownVisibleAdmin);
   };
   const closeMenu = () => {
     setIsMenuOpen(false);
@@ -103,7 +108,10 @@ const Header = () => {
                 placeholder="Search"
                 className="bg-gray-700 text-white rounded-md py-2 pl-8 pr-4 focus:outline-none focus:ring focus:border-blue-300 mr-[15px]"
               />
-              <button className="bg-transparent border-teal-300 text-teal-300 border hover:bg-teal-300 hover:text-gray-800 hover:border-teal-300 py-2 px-4 rounded" onClick={closeMenu}>
+              <button
+                className="bg-transparent border-teal-300 text-teal-300 border hover:bg-teal-300 hover:text-gray-800 hover:border-teal-300 py-2 px-4 rounded"
+                onClick={closeMenu}
+              >
                 Search
               </button>
             </form>
@@ -166,9 +174,51 @@ const Header = () => {
               )}
             </div>
           ) : (
-            <Link to="/login" className="text-white hover:text-gray-300" onClick={closeMenu}>
+            <Link
+              to="/login"
+              className="text-white hover:text-gray-300"
+              onClick={closeMenu}
+            >
               Sign In
             </Link>
+          )}
+          {userInfo && userInfo.isAdmin && (
+            <div className="relative inline-block text-left">
+              <button
+                className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+                onClick={toggleDropdownAdmin}
+              >
+                Admin
+              </button>
+              {isDropdownVisibleAdmin && (
+              <div className="origin-top-right absolute right-[-40px] mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200">
+                <div className="py-1">
+                  <Link
+                    to={"/admin/productlist"}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={toggleDropdownAdmin}
+                    
+                  >
+                    Products
+                  </Link>
+                  <Link
+                    to={"/admin/orderlist"}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={toggleDropdownAdmin}
+                  >
+                    Orders
+                  </Link>
+                  <Link
+                    to={"/admin/userlist"}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={toggleDropdownAdmin}
+                  >
+                    Users
+                  </Link>
+                </div>
+              </div>
+          )}
+            </div>
           )}
         </div>
       </Container>
