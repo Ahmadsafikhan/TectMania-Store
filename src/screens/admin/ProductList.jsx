@@ -46,7 +46,7 @@ const ProductList = () => {
       // };
 
       // Send a POST request to create the product
-      const response = await axios.post('/api/prod');
+      const response = await axios.post('/api/products');
 
       // Check if the request was successful
       if (response.status === 201) {
@@ -103,7 +103,7 @@ const ProductList = () => {
                   <td className="px-4 py-2">{product.brand}</td>
                   <td className="px-4 py-2">
                     <Link to={`/admin/product/${product._id}/edit`}>
-                      <button className="text-blue-500 hover:underline mr-2">
+                      <button className="text-blue-500 hover:underline mr-2" >
                         <FaEdit />
                       </button>
                     </Link>
