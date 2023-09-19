@@ -209,7 +209,7 @@ const Header = () => {
                     Orders
                   </Link>
                   <Link
-                    to={"/admin/userlist"}
+                    to={"/admin/usersList"}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     onClick={toggleDropdownAdmin}
                   >
