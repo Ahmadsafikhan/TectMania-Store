@@ -2,28 +2,49 @@ import React, { useEffect, useState } from "react";
 import Container from "../components/common/Container";
 import ProductCard from "../components/common/ProductCard";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
 const HomeScreen = () => {
+  const { pageNumber } = useParams();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(pageNumber || 1);
 
   useEffect(() => {
-    axios
-      .get("/api/products")
-      .then((response) => {
-        setProducts(response.data);
-        setLoading(false); // Set loading to false when data is received
-      })
-      .catch((error) => {
-        setError(error); // Set error if there's an issue
-        setLoading(false); // Set loading to false when there's an error
-      });
-  }, []);
+    const fetchProducts = async () => {
+      try {
+        // Set loading true
+        setLoading(true);
+        const { data } = await axios.get(`/api/products?page=${page}`);
+        console.log(data, "abcd");
+        setProducts(data.products);
+        // set Loading false
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [page]);
+
+  const handleNext = () => {
+    setPage((prevState) => prevState + 1);
+  };
+
+  const handlePrev = () => {
+    setPage((prevState) => Math.max(prevState - 1, 1));
+  };
+
+  useEffect(() => {
+    navigate(`/page/${page}`);
+  }, [page]);
 
   return (
     <Container className="mx-auto p-4">
@@ -34,10 +55,12 @@ const HomeScreen = () => {
         {loading ? (
           <Loader />
         ) : error ? (
-          <Message variant="error">Error fetching products: {error.message}</Message>
+          <Message variant="error">
+            Error fetching products: {error.message}
+          </Message>
         ) : (
           <div className="flex flex-wrap gap-4 justify-center">
-            {products.map((item) => (
+            {products?.map((item) => (
               <ProductCard key={item._id}>
                 <Link to={`/products/${item._id}`}>
                   <img
@@ -62,6 +85,12 @@ const HomeScreen = () => {
             ))}
           </div>
         )}
+      </div>
+      <div>
+        <button onClick={handlePrev}>{"<"}</button>
+
+        <span>{pageNumber}</span>
+        <button onClick={handleNext}>{">"}</button>
       </div>
     </Container>
   );

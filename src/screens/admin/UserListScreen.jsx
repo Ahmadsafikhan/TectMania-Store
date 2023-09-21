@@ -4,6 +4,7 @@ import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
 import axios from 'axios'; 
+import Container from '../../components/common/Container';
 // import { USERS_URL } from '../../constants';
 
 const UserListScreen = () => {
@@ -40,20 +41,21 @@ const UserListScreen = () => {
 
   return (
     <>
+    <Container className="p-4 mx-auto">
       <h1 className="text-2xl font-bold mb-4">Users</h1>
       {isLoading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <table className="min-w-full bg-white border-collapse">
+        <table className="min-w-full bg-white border-collapse border border-gray-300">
           <thead>
-            <tr className="bg-gray-100 text-gray-600 uppercase">
-              <th className="py-2 px-4">ID</th>
-              <th className="py-2 px-4">NAME</th>
-              <th className="py-2 px-4">EMAIL</th>
-              <th className="py-2 px-4">ADMIN</th>
-              <th className="py-2 px-4"></th>
+            <tr className="bg-gray-100 text-gray-600 uppercase ">
+              <th className="py-2 px-4 text-start">ID</th>
+              <th className="py-2 px-4 text-start">NAME</th>
+              <th className="py-2 px-4 text-start">EMAIL</th>
+              <th className="py-2 px-4 text-start">ADMIN</th>
+              <th className="py-2 px-4 text-start"></th>
             </tr>
           </thead>
           <tbody>
@@ -71,7 +73,7 @@ const UserListScreen = () => {
                     <span className="text-red-500">✗</span>
                   )}
                 </td>
-                <td className="py-2 px-4">
+                <td className="py-2 px-4 justify-center flex items-center">
                   {!user.isAdmin && (
                     <>
                       <Link
@@ -94,6 +96,7 @@ const UserListScreen = () => {
           </tbody>
         </table>
       )}
+      </Container>
     </>
   );
 };

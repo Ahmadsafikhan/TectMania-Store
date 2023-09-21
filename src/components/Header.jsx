@@ -194,7 +194,7 @@ const Header = () => {
               <div className="origin-top-right absolute right-[-40px] mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200">
                 <div className="py-1">
                   <Link
-                    to={"/admin/productlist"}
+                    to={"/admin/productList"}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     onClick={toggleDropdownAdmin}
                     

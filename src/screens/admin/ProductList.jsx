@@ -7,19 +7,21 @@ import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Container from "../../components/common/Container";
 import { toast } from "react-toastify";
-// import Paginate from '../../components/Paginate';
+
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const { _id } = useParams();
+  
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
       const { data } = await axios.get("/api/products"); // Adjust the URL as needed
-      setProducts(data);
+
+      console.log("data", data);
+      setProducts(data.products);
       setLoading(false);
     } catch (err) {
       setError(err?.response?.data?.message || err.message);
@@ -34,8 +36,10 @@ const ProductList = () => {
   const deleteProductHandler = async (id) => {
     if (window.confirm("Are you sure")) {
       try {
-       await axios.delete(`/api/products/${id}`); // Assuming your API endpoint is '/api/products'
-        setProducts((prevProducts) => prevProducts.filter((product) => product._id !== id));
+        await axios.delete(`/api/products/${id}`); // Assuming your API endpoint is '/api/products'
+        setProducts((prevProducts) =>
+          prevProducts.filter((product) => product._id !== id)
+        );
         toast.success("Product deleted successfully.");
       } catch (err) {
         toast.error(err?.response?.data?.message || err.message);
@@ -91,8 +95,8 @@ const ProductList = () => {
         </div>
         {loading ? (
           <Loader />
-        ) : error ? (
-          <Message variant="error">{error.data.message}</Message>
+          ) : error && error.response ? ( // Check if error and error.response exist
+            <Message variant="error">{error.response.data.message}</Message>
         ) : (
           <>
             <table className="w-full border-collapse border border-gray-300 mt-4">
@@ -107,7 +111,7 @@ const ProductList = () => {
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => (
+                {products?.map((product) => (
                   <tr key={product._id}>
                     <td className="px-4 py-2">{product._id}</td>
                     <td className="px-4 py-2">{product.name}</td>
