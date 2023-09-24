@@ -13,6 +13,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [isDropdownVisibleAdmin, setDropdownVisibleAdmin] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const menuRef = useRef(null);
 
   const { cartItems } = useSelector((state) => state.cart);
@@ -47,6 +48,13 @@ const Header = () => {
   };
   const closeMenu = () => {
     setIsMenuOpen(false);
+  };
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchValue.trim() !== '') {
+      navigate(`/search/${encodeURIComponent(searchValue)}`);
+      setSearchValue(''); // Clear the search input field
+    }
   };
 
   useEffect(() => {
@@ -102,13 +110,16 @@ const Header = () => {
           ref={menuRef}
         >
           <div>
-            <form action="" type="submit">
+            <form onSubmit={handleSearch}>
               <input
                 type="text"
                 placeholder="Search"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
                 className="bg-gray-700 text-white rounded-md py-2 pl-8 pr-4 focus:outline-none focus:ring focus:border-blue-300 mr-[15px]  w-[213px] ml-[-11px]"
               />
               <button
+                type="submit"
                 className="bg-transparent border-teal-300 text-teal-300 border hover:bg-teal-300 hover:text-gray-800 hover:border-teal-300 py-2 px-4 rounded"
                 onClick={closeMenu}
               >

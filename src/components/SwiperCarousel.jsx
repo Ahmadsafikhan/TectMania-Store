@@ -7,7 +7,7 @@ import "swiper/swiper-bundle.min.css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { EffectCoverflow, Pagination, Navigation, Mousewheel } from "swiper";
+import { EffectCoverflow, Pagination, Navigation, Mousewheel,  Autoplay } from "swiper";
 import Container from "./common/Container";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
@@ -71,7 +71,8 @@ const SwiperCarousel = () => {
             clickable: true,
           }}
           navigation={true}
-          modules={[EffectCoverflow, Pagination, Navigation, Mousewheel]}
+          autoplay={{ delay: 3000 }}
+          modules={[EffectCoverflow, Pagination, Navigation, Mousewheel, Autoplay]}
         >
           {topRatedProducts.map((item) => (
             <SwiperSlide

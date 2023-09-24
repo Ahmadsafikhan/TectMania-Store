@@ -13,6 +13,7 @@ import HeroSection from "../components/common/HeroSection";
 const HomeScreen = forwardRef((props, ref) => {
   const { pageNumber } = useParams();
   const navigate = useNavigate();
+  const { keyword } = useParams(); // Add keyword from URL params
   const [products, setProducts] = useState([]);
   // const [topRatedProducts, setTopRatedProducts] = useState([]); // Add state for top-rated products
   const [loading, setLoading] = useState(true);
@@ -37,6 +38,12 @@ const HomeScreen = forwardRef((props, ref) => {
 
     fetchProducts();
   }, [page]);
+   // Handle search query
+   useEffect(() => {
+    if (keyword) {
+      navigate(`/search/${keyword}`);
+    }
+  }, [keyword, navigate]);
 
   const handleNext = () => {
     setPage((prevState) => prevState + 1);

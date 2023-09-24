@@ -62,6 +62,8 @@ const ProductDetail = () => {
         toast.error(err.message || "Failed to create review");
       }
     }
+    setRating("");
+    setComment("");
   };
 
   return (

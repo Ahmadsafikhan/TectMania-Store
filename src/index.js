@@ -28,6 +28,7 @@ import ProductListScreen from "./screens/admin/ProductList";
 import ProductEditScreen from "./screens/admin/ProductEditScreen";
 import UserListScreen from "./screens/admin/UserListScreen";
 import UserEditScreen from "./screens/admin/UserEditScreen";
+import SearchResultScreen from "./screens/SearchResultScreen";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +39,7 @@ const route = createBrowserRouter(
       <Route path="/cart" element={<CartScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
+      <Route path="/search/:keyword" element={<SearchResultScreen />} />
 
       <Route path="" element={<PrivateRoute />}>
         <Route path="/checkout" element={<CheckoutScreen />} />

@@ -18,7 +18,7 @@ const PaymentScreen = () => {
     }
   }, [navigate, shippingAddress]);
 
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [paymentMethod, setPaymentMethod] = useState("Stripe");
   const [paymentMethodj, setPaymentMethodj] = useState("JazzCash");
 
   const dispatch = useDispatch();
@@ -50,8 +50,8 @@ const PaymentScreen = () => {
                 id="PayPal"
                 name="paymentMethod"
                 value="PayPal"
-                checked={paymentMethod === "PayPal"}
-                onChange={() => setPaymentMethod("PayPal")}
+                checked={paymentMethod === "Stripe"}
+                onChange={() => setPaymentMethod("Stripe")}
               />
               <label htmlFor="PayPal" className="ml-2 text-gray-700">
                 PayPal or Credit Card

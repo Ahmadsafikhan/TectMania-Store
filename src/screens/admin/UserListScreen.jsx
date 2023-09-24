@@ -48,6 +48,7 @@ const UserListScreen = () => {
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
+        <div className="max-sm:max-w-[500px] sm:w-full overflow-x-scroll " >
         <table className="min-w-full bg-white border-collapse border border-gray-300">
           <thead>
             <tr className="bg-gray-100 text-gray-600 uppercase ">
@@ -95,6 +96,7 @@ const UserListScreen = () => {
             ))}
           </tbody>
         </table>
+        </div>
       )}
       </Container>
     </>
