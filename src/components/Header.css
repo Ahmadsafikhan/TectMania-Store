@@ -10,6 +10,8 @@
     background-color: black;
     /* display: -webkit-inline-box; */
     top: 44px;
+    left: 0;
+    right: 0;
     padding: 30px;
   }
 }

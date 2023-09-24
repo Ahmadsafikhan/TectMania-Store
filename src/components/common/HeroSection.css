@@ -1,0 +1,20 @@
+
+/* HeroSection.css */
+.responsive-text {
+    font-size: 30px; /* Default font size for smaller screens */
+  }
+  
+  .typewriter-text{
+ 
+  }
+  @media (min-width: 768px) {
+    .responsive-text {
+      font-size: 2.5rem; /* Adjust font size for medium-sized screens */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .responsive-text {
+      font-size: 30px; /* Adjust font size for larger screens */
+    }
+  }

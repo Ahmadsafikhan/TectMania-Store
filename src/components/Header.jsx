@@ -98,7 +98,7 @@ const Header = () => {
         <div
           className={`menu md:flex ${
             isMenuOpen ? "block" : "hidden"
-          } items-center space-x-4`}
+          } items-center space-x-4 z-50`}
           ref={menuRef}
         >
           <div>
@@ -106,7 +106,7 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Search"
-                className="bg-gray-700 text-white rounded-md py-2 pl-8 pr-4 focus:outline-none focus:ring focus:border-blue-300 mr-[15px]"
+                className="bg-gray-700 text-white rounded-md py-2 pl-8 pr-4 focus:outline-none focus:ring focus:border-blue-300 mr-[15px]  w-[213px] ml-[-11px]"
               />
               <button
                 className="bg-transparent border-teal-300 text-teal-300 border hover:bg-teal-300 hover:text-gray-800 hover:border-teal-300 py-2 px-4 rounded"
@@ -185,39 +185,38 @@ const Header = () => {
           {userInfo && userInfo.isAdmin && (
             <div className="relative inline-block text-left">
               <button
-                className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+                className="bg-teal-300 hover:bg-gray-800 text-gray-800 hover:text-teal-300 py-2 px-4 rounded border border-teal-300 hover:border-teal-300"
                 onClick={toggleDropdownAdmin}
               >
                 Admin
               </button>
               {isDropdownVisibleAdmin && (
-              <div className="origin-top-right absolute right-[-40px] mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200">
-                <div className="py-1">
-                  <Link
-                    to={"/admin/productList"}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={toggleDropdownAdmin}
-                    
-                  >
-                    Products
-                  </Link>
-                  <Link
-                    to={"/admin/orderlist"}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={toggleDropdownAdmin}
-                  >
-                    Orders
-                  </Link>
-                  <Link
-                    to={"/admin/usersList"}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={toggleDropdownAdmin}
-                  >
-                    Users
-                  </Link>
+                <div className="origin-top-right absolute right-[-40px] mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200">
+                  <div className="py-1">
+                    <Link
+                      to={"/admin/productList"}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={toggleDropdownAdmin}
+                    >
+                      Products
+                    </Link>
+                    <Link
+                      to={"/admin/orderList"}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={toggleDropdownAdmin}
+                    >
+                      Orders
+                    </Link>
+                    <Link
+                      to={"/admin/usersList"}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={toggleDropdownAdmin}
+                    >
+                      Users
+                    </Link>
+                  </div>
                 </div>
-              </div>
-          )}
+              )}
             </div>
           )}
         </div>

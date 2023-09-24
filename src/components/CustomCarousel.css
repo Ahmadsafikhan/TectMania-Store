@@ -1,0 +1,99 @@
+.custom-carousel {
+    padding: 16px;
+  }
+  
+  .carousel-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Adjust the height as needed */
+  }
+  
+  .product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+    width: 250px;
+    margin: 0 16px; /* Add margin between items */
+  }
+  
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .product-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .product-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .product-title {
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+  
+  .product-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff; /* Adjust the color to your preference */
+    margin-top: 8px;
+  }
+  
+  .product-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  
+  .rating-stars {
+    color: gold; /* Adjust the color to your preference */
+    font-size: 16px;
+  }
+  
+  .rating-count {
+    margin-left: 4px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .hero-section {
+    background-color: #f8f8f8; /* Adjust the background color as needed */
+    padding: 100px 0; /* Adjust the padding as needed */
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: 36px;
+    color: #333; /* Adjust the title color as needed */
+    margin-bottom: 40px; /* Adjust the margin as needed */
+  }
+  
+  .carousel-container {
+    max-width: 1200px; /* Adjust the maximum width as needed */
+    margin: 0 auto;
+  }
