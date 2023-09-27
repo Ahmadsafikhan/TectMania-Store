@@ -29,6 +29,7 @@ import ProductEditScreen from "./screens/admin/ProductEditScreen";
 import UserListScreen from "./screens/admin/UserListScreen";
 import UserEditScreen from "./screens/admin/UserEditScreen";
 import SearchResultScreen from "./screens/SearchResultScreen";
+import CheckoutSuccess from "./screens/CheckoutSuccess";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -43,10 +44,12 @@ const route = createBrowserRouter(
 
       <Route path="" element={<PrivateRoute />}>
         <Route path="/checkout" element={<CheckoutScreen />} />
-        <Route path="/payment" element={<PaymentScreen />} />
         <Route path="/placeorder" element={<PlaceOrderScreen />} />
-        <Route path="/order/:id" element={<OrderScreen />} />
+        {/* <Route path="/order/:id" element={<OrderScreen />} /> */}
         <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/checkout-success" element={<CheckoutSuccess />} />
+
+
       </Route>
 
       <Route path="" element={<AdminRoute />}>

@@ -8,11 +8,15 @@ import Loader from "../components/Loader";
 import { clearCartItems } from "../slices/cartSlice";
 import axios from "axios"; // Import Axios
 import Container from "../components/common/Container";
+import StripeCheckoutScreen from "./StripeCheckoutScreen";
+import { loadStripe } from "@stripe/stripe-js";
 
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const userInfo = useSelector((state) => state.auth);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -24,38 +28,45 @@ const PlaceOrderScreen = () => {
     }
   }, [cart.paymentMethod, cart.shippingAddress.address, navigate]);
 
-  const placeOrderHandler = async () => {
+  const handleStripeCheckout = async () => {
     try {
-      setIsLoading(true);
-      const response = await axios.post("/api/orders", {
-        orderItems: cart.cartItems,
-        shippingAddress: cart.shippingAddress,
-        paymentMethod: cart.paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        shippingPrice: cart.shippingPrice,
-        taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
+      const response = await axios.post("/api/orders/create-checkout-session", {
+        cart: cart,
+        userId: userInfo._id,
+      });
+      const sessionId = response.data.sessionId;
+      // sessionStorage.setItem(
+      //   "cart",
+      //   JSON.stringify({
+      //     cart: cart,
+      //     userId: userInfo._id,
+      //   })
+      // );
+
+      const stripe = await loadStripe(
+        "pk_test_51NpSHnA4QkeJV4C9beuN1K4v4MoBHt4BtKellFkysjyVoC6Vr8e2J27L6l1rlqwPZdIhGCuSiuOyTCJixuytc3AP003RDlSEnv"
+      ); // Replace with your actual Stripe publishable key
+      dispatch(clearCartItems());
+      // Redirect to the Stripe checkout page
+      const { error } = await stripe.redirectToCheckout({
+        sessionId,
       });
 
-      if (response.status !== 201) {
-        throw new Error("Failed to create order");
+      if (error) {
+        // Handle any errors from Stripe.redirectToCheckout
+        setError(error.message);
+        toast.error(error.message);
       }
-
-      const data = response.data;
-      dispatch(clearCartItems());
-      navigate(`/order/${data._id}`);
     } catch (err) {
       setError(err.message);
       toast.error(err.message);
-    } finally {
-      setIsLoading(false);
     }
   };
   return (
     <>
       <Container className="p-4 mx-auto max-w-[650px]">
         {" "}
-        <CheckoutSteps step1 step2 step3 step4 />
+        <CheckoutSteps step1 step2 step3 />
       </Container>
       <Container className="p-4 mx-auto">
         <div className="flex flex-col md:flex-row">
@@ -142,10 +153,11 @@ const PlaceOrderScreen = () => {
                   type="button"
                   className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 disabled:opacity-50"
                   disabled={cart.cartItems.length === 0}
-                  onClick={placeOrderHandler}
+                  onClick={handleStripeCheckout}
                 >
-                  Place Order
+                  Proceed to checkout
                 </button>
+
                 {isLoading && (
                   <div className="mt-2">
                     {/* Assuming you have a Loader component */}

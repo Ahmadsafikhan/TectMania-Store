@@ -26,7 +26,7 @@ const CheckoutScreen = () => {
     console.log("form submitted");
     e.preventDefault();
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
-    navigate("/payment");
+    navigate("/placeorder");
   };
   return (
     <>

@@ -23,19 +23,8 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
           <span>Shipping</span>
         )}
       </div>
-
-      <div className={`w-full sm:w-1/2 md:w-1/4 lg:w-1/5 mb-4 ${step3 ? '' : 'text-gray-400'}`}>
-        {step3 ? (
-          <Link to="/payment" className="text-blue-500">
-            Payment
-          </Link>
-        ) : (
-          <span>Payment</span>
-        )}
-      </div>
-
       <div className={`w-full sm:w-1/2 md:w-1/4 lg:w-1/5 mb-4 ${step4 ? '' : 'text-gray-400'}`}>
-        {step4 ? (
+        {step3 ? (
           <Link to="/placeorder" className="text-blue-500">
             Place Order
           </Link>
