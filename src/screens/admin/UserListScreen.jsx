@@ -5,12 +5,16 @@ import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
 import axios from 'axios'; 
 import Container from '../../components/common/Container';
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 // import { USERS_URL } from '../../constants';
 
 const UserListScreen = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 10;
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -26,6 +30,21 @@ const UserListScreen = () => {
 
     fetchUsers();
   }, []);
+
+  const usersToShow = users.slice((currentPage - 1) * perPage, currentPage * perPage);
+  const totalPages = Math.ceil(users.length / perPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   const deleteHandler = async (id) => {
     if (window.confirm('Are you sure')) {
@@ -60,7 +79,7 @@ const UserListScreen = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {usersToShow.map((user) => (
               <tr key={user._id} className="border-b">
                 <td className="py-2 px-4">{user._id}</td>
                 <td className="py-2 px-4">{user.name}</td>
@@ -79,15 +98,16 @@ const UserListScreen = () => {
                     <>
                       <Link
                         to={`/admin/user/${user._id}/edit`}
-                        className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mr-2"
-                      >
-                        Edit
+                       >
+                       <button className="text-blue-500 hover:underline mr-2">
+                          <FaEdit />
+                        </button>
                       </Link>
-                      <button
-                        className="bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
+                       <button
+                        className="text-red-500 hover:underline"
                         onClick={() => deleteHandler(user._id)}
                       >
-                        Delete
+                         <FaTrash />
                       </button>
                     </>
                   )}
@@ -98,6 +118,22 @@ const UserListScreen = () => {
         </table>
         </div>
       )}
+      <div className="flex justify-center mt-4">
+          <button
+            className="px-4 py-2 mr-2 bg-blue-500 text-white rounded"
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+          >
+            <AiOutlineArrowLeft/>
+          </button>
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+             <AiOutlineArrowRight />
+          </button>
+        </div>
       </Container>
     </>
   );

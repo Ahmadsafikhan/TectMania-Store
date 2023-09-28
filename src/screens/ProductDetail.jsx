@@ -100,7 +100,7 @@ const ProductDetail = () => {
                   />
                 </div>
 
-                <div className="flex items-center justify-evenly mb-6">
+                <div className="flex items-center mb-6">
                   <p
                     className={`text-lg font-semibold mr-4 ${
                       product.countInStock > 0
@@ -112,6 +112,7 @@ const ProductDetail = () => {
                   </p>
 
                   {product.countInStock > 0 && (
+                    !userInfo.isAdmin && 
                     <button
                       className="bg-yellow-500 hover:bg-yellow-700 text-white py-3 px-6 rounded-full"
                       disabled={product.countInStock === 0}
@@ -119,11 +120,12 @@ const ProductDetail = () => {
                     >
                       Add to Cart
                     </button>
+                    
                   )}
                 </div>
-                <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-full">
+                {/* <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-full">
                   Add to Wishlist
-                </button>
+                </button> */}
                 <p className="text-lg mb-8">{product.description}</p>
               </div>
             </div>

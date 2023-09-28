@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
@@ -13,6 +14,8 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 10;
   
 
   const fetchProducts = async () => {
@@ -44,6 +47,20 @@ const ProductList = () => {
       } catch (err) {
         toast.error(err?.response?.data?.message || err.message);
       }
+    }
+  };
+  const productsToShow = products.slice((currentPage - 1) * perPage, currentPage * perPage);
+  const totalPages = Math.ceil(products.length / perPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
   };
 
@@ -111,7 +128,7 @@ const ProductList = () => {
                 </tr>
               </thead>
               <tbody>
-                {products?.map((product) => (
+                {productsToShow?.map((product) => (
                   <tr key={product._id}>
                     <td className="px-4 py-2">{product._id}</td>
                     <td className="px-4 py-2">{product.name}</td>
@@ -138,6 +155,22 @@ const ProductList = () => {
             {/* <Paginate pages={data.pages} page={data.page} isAdmin={true} /> */}
           </>
         )}
+        <div className="flex justify-center mt-4">
+          <button
+            className="px-4 py-2 mr-2 bg-blue-500 text-white rounded"
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+          >
+            <AiOutlineArrowLeft/>
+          </button>
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+             <AiOutlineArrowRight />
+          </button>
+        </div>
       </Container>
     </>
   );

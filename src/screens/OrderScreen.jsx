@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 // import { toast } from "react-toastify";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
@@ -28,6 +27,8 @@ const OrderScreen = () => {
     fetchOrderDetails();
   }, [orderId]);
 
+
+  
   return (
     <Container className="p-4 mx-auto">
       {isLoading ? (
@@ -54,16 +55,16 @@ const OrderScreen = () => {
                   {order.shippingAddress.postalCode},{" "}
                   {order.shippingAddress.country}
                 </p>
-                {order.isDelivered ? (
+                {/* {order.isDelivered ? (
                   <Message variant="success">
                     Delivered on {order.deliveredAt}
                   </Message>
                 ) : (
                   <Message variant="error">Not Delivered</Message>
-                )}
+                )} */}
               </div>
 
-              <div className="mb-4">
+              {/* <div className="mb-4">
                 <h2 className="text-xl font-semibold">Payment Method</h2>
                 <p className="mb-2">
                   <strong>Method: </strong>
@@ -74,7 +75,7 @@ const OrderScreen = () => {
                 ) : (
                   <Message variant="error">Not Paid</Message>
                 )}
-              </div>
+              </div> */}
 
               <div>
                 <h2 className="text-xl font-semibold">Order Items</h2>

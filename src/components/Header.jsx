@@ -9,6 +9,7 @@ import axios from "axios"; // Import Axios
 
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BiSolidDownArrow } from "react-icons/bi";
+import { clearCartItems } from "../slices/cartSlice";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -34,6 +35,7 @@ const Header = () => {
 
       // Dispatch the logout action and redirect to login page
       dispatch(logout());
+      dispatch(clearCartItems());
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -51,9 +53,9 @@ const Header = () => {
   };
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchValue.trim() !== '') {
+    if (searchValue.trim() !== "") {
       navigate(`/search/${encodeURIComponent(searchValue)}`);
-      setSearchValue(''); // Clear the search input field
+      setSearchValue(""); // Clear the search input field
     }
   };
 
@@ -128,7 +130,7 @@ const Header = () => {
             </form>
           </div>
 
-          <Link to={"/cart"} className="flex items-center" onClick={closeMenu}>
+          {!userInfo?.isAdmin && <Link to={"/cart"} className="flex items-center" onClick={closeMenu}>
             {/* <button className="text-white flex"> */}
             <div>
               <AiOutlineShoppingCart
@@ -146,7 +148,7 @@ const Header = () => {
             </div>
 
             {/* </button> */}
-          </Link>
+          </Link>}
 
           {userInfo ? (
             <div className="relative group">
@@ -196,11 +198,15 @@ const Header = () => {
           {userInfo && userInfo.isAdmin && (
             <div className="relative inline-block text-left">
               <button
-                className="bg-teal-300 hover:bg-gray-800 text-gray-800 hover:text-teal-300 py-2 px-4 rounded border border-teal-300 hover:border-teal-300"
+                className="bg-teal-300 text-gray-800 py-2 px-4 rounded border border-teal-300 hover:bg-gray-800 hover:text-teal-300 hover:border-teal-300 flex items-center"
                 onClick={toggleDropdownAdmin}
               >
                 Admin
+                <span className="ml-1">
+                  <BiSolidDownArrow className="text-[10px]" />
+                </span>
               </button>
+
               {isDropdownVisibleAdmin && (
                 <div className="origin-top-right absolute right-[-40px] mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200">
                   <div className="py-1">

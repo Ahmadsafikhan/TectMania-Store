@@ -23,17 +23,23 @@ const PlaceOrderScreen = () => {
   useEffect(() => {
     if (!cart.shippingAddress.address) {
       navigate("/checkout");
-    } else if (!cart.paymentMethod) {
-      navigate("/payment");
     }
-  }, [cart.paymentMethod, cart.shippingAddress.address, navigate]);
+  }, [cart.shippingAddress.address, navigate]);
 
   const handleStripeCheckout = async () => {
+    setIsLoading(true);
     try {
-      const response = await axios.post("/api/orders/create-checkout-session", {
-        cart: cart,
-        userId: userInfo._id,
+      const response = await axios.post("/api/orders", {
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        // paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
       });
+
+      console.log(response.data);
       const sessionId = response.data.sessionId;
       // sessionStorage.setItem(
       //   "cart",
@@ -47,6 +53,7 @@ const PlaceOrderScreen = () => {
         "pk_test_51NpSHnA4QkeJV4C9beuN1K4v4MoBHt4BtKellFkysjyVoC6Vr8e2J27L6l1rlqwPZdIhGCuSiuOyTCJixuytc3AP003RDlSEnv"
       ); // Replace with your actual Stripe publishable key
       dispatch(clearCartItems());
+      setIsLoading(false);
       // Redirect to the Stripe checkout page
       const { error } = await stripe.redirectToCheckout({
         sessionId,
@@ -58,7 +65,7 @@ const PlaceOrderScreen = () => {
         toast.error(error.message);
       }
     } catch (err) {
-      setError(err.message);
+      setIsLoading(false);
       toast.error(err.message);
     }
   };
@@ -80,11 +87,11 @@ const PlaceOrderScreen = () => {
               </p>
             </div>
 
-            <div className="bg-white p-4 mt-4 shadow-md">
+            {/* <div className="bg-white p-4 mt-4 shadow-md">
               <h2 className="text-2xl font-bold">Payment Method</h2>
               <strong>Method: </strong>
               {cart.paymentMethod}
-            </div>
+            </div> */}
 
             <div className="bg-white p-4 mt-4 shadow-md">
               <h2 className="text-2xl font-bold">Order Items</h2>

@@ -9,6 +9,7 @@ import Message from "../components/Message";
 import CustomCarousel from "../components/CustomCarousel";
 import SwiperCarousel from "../components/SwiperCarousel";
 import HeroSection from "../components/common/HeroSection";
+import { useSelector } from "react-redux";
 
 const HomeScreen = forwardRef((props, ref) => {
   const { pageNumber } = useParams();
@@ -19,6 +20,8 @@ const HomeScreen = forwardRef((props, ref) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(pageNumber || 1);
+  const [displayedProducts, setDisplayedProducts] = useState(6);
+  const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -38,8 +41,8 @@ const HomeScreen = forwardRef((props, ref) => {
 
     fetchProducts();
   }, [page]);
-   // Handle search query
-   useEffect(() => {
+  // Handle search query
+  useEffect(() => {
     if (keyword) {
       navigate(`/search/${keyword}`);
     }
@@ -52,6 +55,9 @@ const HomeScreen = forwardRef((props, ref) => {
   const handlePrev = () => {
     setPage((prevState) => Math.max(prevState - 1, 1));
   };
+  const handleShowMore = () => {
+    setDisplayedProducts((prevCount) => prevCount + 6); // Increase the number of displayed products by 6
+  };
 
   useEffect(() => {
     navigate(`/page/${page}`);
@@ -59,9 +65,8 @@ const HomeScreen = forwardRef((props, ref) => {
 
   return (
     <>
-     <HeroSection homeScreenRef={ref} />
+      {!userInfo?.isAdmin && <HeroSection homeScreenRef={ref} />}
       <Container className="mx-auto p-4">
-       
         <div className="pt-[1rem]">
           {loading ? (
             <Loader />
@@ -78,7 +83,7 @@ const HomeScreen = forwardRef((props, ref) => {
               </h1>
 
               <div className="flex flex-wrap gap-4 justify-center">
-                {products?.map((item) => (
+                {products.slice(0, displayedProducts)?.map((item) => (
                   <ProductCard key={item._id}>
                     <Link to={`/products/${item._id}`}>
                       <img
@@ -102,6 +107,13 @@ const HomeScreen = forwardRef((props, ref) => {
                   </ProductCard>
                 ))}
               </div>
+              {displayedProducts < products.length && (
+                <div className="text-center mt-4">
+                  <button onClick={handleShowMore} className="bg-blue-500 text-white py-2 px-4 rounded">
+                    Show More
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>

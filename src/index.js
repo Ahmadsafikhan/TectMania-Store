@@ -45,7 +45,7 @@ const route = createBrowserRouter(
       <Route path="" element={<PrivateRoute />}>
         <Route path="/checkout" element={<CheckoutScreen />} />
         <Route path="/placeorder" element={<PlaceOrderScreen />} />
-        {/* <Route path="/order/:id" element={<OrderScreen />} /> */}
+        <Route path="/order/:id" element={<OrderScreen />} />
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/checkout-success" element={<CheckoutSuccess />} />
 
