@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../slices/authSlice";
+import logoPic from "../assets/images/logoo-removebg-preview.png"
 import axios from "axios"; // Import Axios
 
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -84,7 +85,8 @@ const Header = () => {
       <Container className="mx-auto flex items-center justify-between relative">
         <div>
           <Link to={"/"}>
-            <div className=" text-white font-semibold text-lg">TechMania</div>
+            {/* <div className=" text-white font-semibold text-lg">TechMania</div> */}
+            <img src={logoPic} alt="logo" className="w-[150px] md:w-[170px]" />
           </Link>
         </div>
         <div className="md:hidden">
