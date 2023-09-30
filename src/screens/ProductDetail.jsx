@@ -68,7 +68,7 @@ const ProductDetail = () => {
 
   return (
     <>
-      <Container className="p-4 mx-auto">
+      <Container className="px-4 py-10 mx-auto">
         <Link to={"/"} className="text-gray-600 hover:text-gray-800 mb-4">
           Back to Products
         </Link>
@@ -112,7 +112,7 @@ const ProductDetail = () => {
                   </p>
 
                   {product.countInStock > 0 && (
-                    !userInfo.isAdmin && 
+                    !userInfo?.isAdmin && 
                     <button
                       className="bg-yellow-500 hover:bg-yellow-700 text-white py-3 px-6 rounded-full"
                       disabled={product.countInStock === 0}
@@ -148,7 +148,7 @@ const ProductDetail = () => {
                   ))}
                 </div>
               )}
-              <div className="mt-4">
+              {!userInfo?.isAdmin &&  <div className="mt-4">
                 <h2 className="text-2xl font-semibold">
                   Write a Customer Review
                 </h2>
@@ -190,13 +190,9 @@ const ProductDetail = () => {
                       ></textarea>
                     </div>
                     <button
-                      disabled={loading}
+                      
                       type="submit"
-                      className={`${
-                        loading
-                          ? "bg-gray-300 cursor-not-allowed"
-                          : "bg-blue-500 hover:bg-blue-600"
-                      } text-white p-2 rounded-md mt-4`}
+                      className="bg-teal-300 hover:bg-gray-800 text-gray-800 hover:text-teal-300 py-2 px-4 rounded border border-teal-300 hover:border-teal-300 mt-4"
                     >
                       Submit
                     </button>
@@ -210,7 +206,8 @@ const ProductDetail = () => {
                     to write a review
                   </Message>
                 )}
-              </div>
+              </div>}
+             
             </div>
           </>
         )}

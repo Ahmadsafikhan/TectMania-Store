@@ -106,7 +106,7 @@ const CheckoutScreen = () => {
           <button
             disabled={loading}
             type="submit"
-            className="bg-blue-500 disabled:bg-blue-300 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+            className="bg-teal-300 hover:bg-gray-800 text-gray-800 hover:text-teal-300 py-2 px-4 rounded border border-teal-300 hover:border-teal-300 mt-4"
           >
             Continue
           </button>

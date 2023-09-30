@@ -73,13 +73,13 @@ const ProfileScreen = () => {
   };
 
   return (
-    <Container className="p-4 mx-auto">
+    <Container className="px-4 py-10 mx-auto">
       <div className="flex   gap-16 flex-wrap">
-        <div className="pt-[25px] md:w-1/4 ">
-          <h1 className="text-2xl font-semibold mb-4">Update Profile</h1>
+      <div className="pt-4  lg:w-1/3 w-full FirstHalf">
+          <h1 className="text-2xl font-semibold mb-4 ">Update Profile</h1>
           <form onSubmit={submitHandler}>
             <div className="mb-4">
-              <label htmlFor="name" className="block font-medium text-gray-700">
+              <label htmlFor="name" className="block font-medium text-gray-700 ">
                 Name
               </label>
               <input
@@ -146,7 +146,7 @@ const ProfileScreen = () => {
             <button
               disabled={loading}
               type="submit"
-              className="bg-blue-500 disabled:bg-blue-300 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+              className="bg-teal-300 hover:bg-gray-800 text-gray-800 hover:text-teal-300 py-2 px-4 rounded border border-teal-300 hover:border-teal-300 mt-4"
             >
               Update
             </button>
@@ -154,7 +154,7 @@ const ProfileScreen = () => {
           </form>
         </div>
         <div
-          className={`${userInfo.isAdmin === true ? "hidden" : ""} pt-[25px]`}
+          className={`${userInfo.isAdmin === true ? "hidden" : ""}   md:w-[60%] w-full  secondHalf`}
         >
           {loading ? (
             <div className=" ">
@@ -163,9 +163,9 @@ const ProfileScreen = () => {
           ) : error ? (
             <Message variant="error">{error}</Message>
           ) : (
-            <div className="max-sm:max-w-[300px] sm:w-full overflow-x-scroll ">
-              <h2 className="text-2xl font-semibold">My Orders</h2>
-              <table className=" border-collapse border border-gray-300 ">
+            <div className="max-sm:max-w-[500px] sm:w-full overflow-x-scroll">
+            <h2 className="text-2xl font-semibold">My Orders</h2>
+              <table className="min-w-full border-collapse border border-gray-300 mt-4">
                 <thead>
                   <tr>
                     <th className="px-4 py-2 text-left bg-gray-100 border-b">
@@ -177,12 +177,12 @@ const ProfileScreen = () => {
                     <th className="px-4 py-2 text-left bg-gray-100 border-b">
                       TOTAL
                     </th>
-                    <th className="px-4 py-2 text-left bg-gray-100 border-b">
+                    {/* <th className="px-4 py-2 text-left bg-gray-100 border-b">
                       PAID
                     </th>
                     <th className="px-4 py-2 text-left bg-gray-100 border-b">
                       DELIVERED
-                    </th>
+                    </th> */}
                     <th className="px-4 py-2 text-left bg-gray-100 border-b"></th>
                   </tr>
                 </thead>
@@ -194,7 +194,7 @@ const ProfileScreen = () => {
                         {order.createdAt.substring(0, 10)}
                       </td>
                       <td className="px-4 py-2 border-b">{order.totalPrice}</td>
-                      <td className="px-4 py-2 border-b">
+                      {/* <td className="px-4 py-2 border-b">
                         {order.isPaid ? (
                           order.paidAt.substring(0, 10)
                         ) : (
@@ -207,7 +207,7 @@ const ProfileScreen = () => {
                         ) : (
                           <div className="text-red-500">cross</div>
                         )}
-                      </td>
+                      </td> */}
                       <td className="px-4 py-2 border-b">
                         <Link
                           to={`/order/${order._id}`}
@@ -220,7 +220,8 @@ const ProfileScreen = () => {
                   ))}
                 </tbody>
               </table>
-            </div>
+              </div>
+            
           )}
         </div>
       </div>

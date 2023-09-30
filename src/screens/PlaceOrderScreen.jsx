@@ -71,14 +71,14 @@ const PlaceOrderScreen = () => {
   };
   return (
     <>
-      <Container className="p-4 mx-auto max-w-[650px]">
+      <Container className="px-4 mx-auto max-w-[650px]">
         {" "}
         <CheckoutSteps step1 step2 step3 />
       </Container>
-      <Container className="p-4 mx-auto">
+      <Container className="px-4 py-10 mx-auto">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-8/12">
-            <div className="bg-white p-4 shadow-md">
+            <div className="bg-white p-4">
               <h2 className="text-2xl font-bold">Shipping</h2>
               <p>
                 <strong>Address:</strong> {cart.shippingAddress.address},{" "}
@@ -93,7 +93,7 @@ const PlaceOrderScreen = () => {
               {cart.paymentMethod}
             </div> */}
 
-            <div className="bg-white p-4 mt-4 shadow-md">
+            <div className="bg-white p-4 mt-4">
               <h2 className="text-2xl font-bold">Order Items</h2>
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
@@ -112,7 +112,7 @@ const PlaceOrderScreen = () => {
                         <div className="flex-grow">
                           <Link
                             to={`/product/${item.product}`}
-                            className="text-blue-500 hover:underline"
+                            className="text-black"
                           >
                             {item.name}
                           </Link>
@@ -158,7 +158,7 @@ const PlaceOrderScreen = () => {
               <div className="mt-4">
                 <button
                   type="button"
-                  className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 disabled:opacity-50"
+                  className="w-full bg-teal-300 hover:bg-gray-800 text-gray-800 hover:text-teal-300 py-2 px-4 rounded border border-teal-300 hover:border-teal-300 mt-4 disabled:opacity-50"
                   disabled={cart.cartItems.length === 0}
                   onClick={handleStripeCheckout}
                 >

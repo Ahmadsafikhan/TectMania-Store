@@ -110,6 +110,7 @@ import axios from "axios"; // Import Axios
 
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
+import Container from "../components/common/Container";
 
 const RegisterScreen = () => {
 
@@ -157,8 +158,9 @@ const RegisterScreen = () => {
 
   return (
     <>
+    <Container className='mx-auto py-10'>
       <FormContainer>
-        <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
+        <h1 className="text-2xl font-semibold mb-4">Sign Up</h1>
 
         <form onSubmit={submitHandler}>
         <div className="mb-4">
@@ -228,7 +230,7 @@ const RegisterScreen = () => {
           <button
             disabled={loading}
             type="submit"
-            className="bg-blue-500 disabled:bg-blue-300 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+            className="bg-teal-300 hover:bg-gray-800 text-gray-800 hover:text-teal-300 py-2 px-4 rounded border border-teal-300 hover:border-teal-300"
           >
             Register
           </button>
@@ -240,13 +242,14 @@ const RegisterScreen = () => {
             Already have an account?{" "}
             <Link
               to={redirect ? `/login?redirect=${redirect}` : "/login"}
-              className="text-blue-500"
+              className="text-teal-300 hover:text-teal-600"
             >
               Login
             </Link>
           </p>
         </div>
       </FormContainer>
+      </Container>
     </>
   );
 };

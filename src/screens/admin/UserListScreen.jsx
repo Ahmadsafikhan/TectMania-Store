@@ -60,15 +60,15 @@ const UserListScreen = () => {
 
   return (
     <>
-    <Container className="p-4 mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Users</h1>
+    <Container className="py-10 px-4 mx-auto">
+      <h1 className="text-2xl font-bold">Users</h1>
       {isLoading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
         <div className="max-sm:max-w-[500px] sm:w-full overflow-x-scroll " >
-        <table className="min-w-full bg-white border-collapse border border-gray-300">
+        <table className="min-w-full bg-white border-collapse border border-gray-300 mt-4">
           <thead>
             <tr className="bg-gray-100 text-gray-600 uppercase ">
               <th className="py-2 px-4 text-start">ID</th>
@@ -119,20 +119,20 @@ const UserListScreen = () => {
         </div>
       )}
       <div className="flex justify-center mt-4">
-          <button
-            className="px-4 py-2 mr-2 bg-blue-500 text-white rounded"
-            onClick={handlePreviousPage}
-            disabled={currentPage === 1}
-          >
-            <AiOutlineArrowLeft/>
-          </button>
-          <button
-            className="px-4 py-2 bg-blue-500 text-white rounded"
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-          >
-             <AiOutlineArrowRight />
-          </button>
+      <button
+          className="px-4 py-2 mr-2 bg-white rounded shadow-md transition duration-300 hover:bg-gray-200 hover:shadow-lg"
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+        >
+          <AiOutlineArrowLeft />
+        </button>
+        <button
+          className="px-4 py-2 ml-2 bg-white rounded shadow-md transition duration-300 hover:bg-gray-200 hover:shadow-lg"
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
+          <AiOutlineArrowRight />
+        </button>
         </div>
       </Container>
     </>

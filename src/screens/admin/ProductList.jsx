@@ -9,14 +9,12 @@ import Loader from "../../components/Loader";
 import Container from "../../components/common/Container";
 import { toast } from "react-toastify";
 
-
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 10;
-  
 
   const fetchProducts = async () => {
     try {
@@ -49,7 +47,10 @@ const ProductList = () => {
       }
     }
   };
-  const productsToShow = products.slice((currentPage - 1) * perPage, currentPage * perPage);
+  const productsToShow = products.slice(
+    (currentPage - 1) * perPage,
+    currentPage * perPage
+  );
   const totalPages = Math.ceil(products.length / perPage);
 
   const handleNextPage = () => {
@@ -99,12 +100,12 @@ const ProductList = () => {
 
   return (
     <>
-      <Container className="mx-auto p-4">
+      <Container className="mx-auto px-4 py-10">
         {" "}
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-semibold">Products</h1>
           <button
-            className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+            className="flex items-center bg-teal-300 hover:bg-gray-800 text-gray-800 hover:text-teal-300 py-2 px-4 rounded border border-teal-300 hover:border-teal-300 border-gray-800"
             onClick={createProductHandler}
           >
             <FaPlus className="mr-2" /> Create Product
@@ -112,8 +113,8 @@ const ProductList = () => {
         </div>
         {loading ? (
           <Loader />
-          ) : error && error.response ? ( // Check if error and error.response exist
-            <Message variant="error">{error.response.data.message}</Message>
+        ) : error && error.response ? ( // Check if error and error.response exist
+          <Message variant="error">{error.response.data.message}</Message>
         ) : (
           <>
             <table className="w-full border-collapse border border-gray-300 mt-4">
@@ -157,18 +158,18 @@ const ProductList = () => {
         )}
         <div className="flex justify-center mt-4">
           <button
-            className="px-4 py-2 mr-2 bg-blue-500 text-white rounded"
+            className="px-4 py-2 mr-2 bg-white rounded shadow-md transition duration-300 hover:bg-gray-200 hover:shadow-lg"
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
           >
-            <AiOutlineArrowLeft/>
+            <AiOutlineArrowLeft />
           </button>
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded"
+            className="px-4 py-2 ml-2 bg-white rounded shadow-md transition duration-300 hover:bg-gray-200 hover:shadow-lg"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
           >
-             <AiOutlineArrowRight />
+            <AiOutlineArrowRight />
           </button>
         </div>
       </Container>

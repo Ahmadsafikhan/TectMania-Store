@@ -10,6 +10,7 @@ import CustomCarousel from "../components/CustomCarousel";
 import SwiperCarousel from "../components/SwiperCarousel";
 import HeroSection from "../components/common/HeroSection";
 import { useSelector } from "react-redux";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 const HomeScreen = forwardRef((props, ref) => {
   const { pageNumber } = useParams();
@@ -68,6 +69,7 @@ const HomeScreen = forwardRef((props, ref) => {
       {!userInfo?.isAdmin && <HeroSection homeScreenRef={ref} />}
       <Container className="mx-auto p-4">
         <div className="pt-[1rem]">
+        <SwiperCarousel />
           {loading ? (
             <Loader />
           ) : error ? (
@@ -77,12 +79,12 @@ const HomeScreen = forwardRef((props, ref) => {
           ) : (
             <div>
               {/* Carousel for top-rated products */}
-              <SwiperCarousel />
+              
               <h1 className="text-2xl font-semibold mb-8 text-center md:text-3xl lg:text-4xl">
                 Latest Products
               </h1>
 
-              <div className="flex flex-wrap gap-4 justify-center">
+              <div className="flex flex-wrap gap-[3rem] justify-center">
                 {products.slice(0, displayedProducts)?.map((item) => (
                   <ProductCard key={item._id}>
                     <Link to={`/products/${item._id}`}>
@@ -109,7 +111,10 @@ const HomeScreen = forwardRef((props, ref) => {
               </div>
               {displayedProducts < products.length && (
                 <div className="text-center mt-4">
-                  <button onClick={handleShowMore} className="bg-blue-500 text-white py-2 px-4 rounded">
+                  <button
+                    onClick={handleShowMore}
+                    className="bg-teal-300 hover:bg-gray-800 text-gray-800 hover:text-teal-300 py-2 px-4 rounded border border-teal-300 hover:border-teal-300"
+                  >
                     Show More
                   </button>
                 </div>
@@ -118,10 +123,20 @@ const HomeScreen = forwardRef((props, ref) => {
           )}
         </div>
         <div>
-          <button onClick={handlePrev}>{"<"}</button>
+        <button
+      className="px-4 py-2 mr-2 bg-white rounded shadow-md transition duration-300 hover:bg-gray-200 hover:shadow-lg"
+      onClick={handlePrev}
+    >
+      <AiOutlineArrowLeft color="black" />
+    </button>
 
           <span>{pageNumber}</span>
-          <button onClick={handleNext}>{">"}</button>
+          <button
+            className="px-4 py-2 ml-2 bg-white rounded shadow-md transition duration-300 hover:bg-gray-200 hover:shadow-lg"
+            onClick={handleNext}
+          >
+            <AiOutlineArrowRight color="black"/>
+          </button>
         </div>
       </Container>
     </>

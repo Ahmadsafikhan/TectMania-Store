@@ -34,7 +34,7 @@ const CartScreen = () => {
   };
 
   return (
-    <Container className="mx-auto p-4">
+    <Container className="mx-auto px-4 py-10">
       <h1 className="text-2xl font-semibold mb-4">Shopping Cart</h1>
       {cartItems.length === 0 ? (
         <Message>
@@ -121,7 +121,7 @@ const CartScreen = () => {
                 type="button"
                 onClick={checkoutHandler}
                 disabled={cartItems.length === 0}
-                className="bg-blue-500 text-white px-4 py-2 rounded mt-4 w-full hover:bg-blue-600"
+                className="bg-teal-300 hover:bg-gray-800 text-gray-800 hover:text-teal-300 py-2 px-4 rounded border border-teal-300 hover:border-teal-300 mt-4 w-full"
               >
                 <Link to={"/checkout"}>Continue </Link>
               </button>

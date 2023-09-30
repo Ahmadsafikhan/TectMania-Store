@@ -30,7 +30,7 @@ const OrderScreen = () => {
 
   
   return (
-    <Container className="p-4 mx-auto">
+    <Container className="px-4 py-10 mx-auto">
       {isLoading ? (
         <Loader />
       ) : error ? (
